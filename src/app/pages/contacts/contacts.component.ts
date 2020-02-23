@@ -104,8 +104,7 @@ export class ContactsComponent implements OnInit {
     )
   }
 
-  addClick(){
-    
+  addClick(){    
     this.contact.name = this.form.value['_name'];
     this.contact.number = this.form.value['_number'];
     if(this.contact.number == ''|| this.contact.name == '' || isNaN(+this.contact.number)){
