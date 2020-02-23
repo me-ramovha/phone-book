@@ -1,0 +1,126 @@
+<mat-card> 
+  
+  <div style="margin: 50px;">
+    <button mat-fab (click)="add()"
+    matTooltip="Add Contact">
+    <mat-icon>add</mat-icon>
+  </button>
+  </div>
+  
+  
+    <!-- <mat-card-content>
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Search Contacts...</mat-label>
+          <input matInput placeholder="search by name" [(ngModel)]="filterName">
+        </mat-form-field>
+      </form>
+        <mat-nav-list>
+            <mat-list-item *ngFor="let contact of contacts | filterByName:filterName">
+              <h4 mat-line>{{ contact.name }}</h4>
+              <p mat-line>{{ contact.number }}</p>
+              <button mat-icon-button (click)="delete(contact)"
+                matTooltip="Delete Contact" matTooltipPosition="above">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-list-item>
+          </mat-nav-list>
+    </mat-card-content> -->
+
+    <div *ngIf="isAddContact" style="margin: 50px;">
+      <form [formGroup]="form" (ngSubmit)="addClick()">
+
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Name" formControlName="_name" required>
+          <mat-error *ngIf="isFieldInvalid('_name')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Number</mat-label>
+          <input matInput type="text" pattern="[0-9]*" placeholder="Number" formControlName="_number" required>
+          <mat-error *ngIf="isFieldInvalid('_number')">
+            Invalid Number
+          </mat-error>
+        </mat-form-field>
+        <div class="form-group">
+          <button mat-raised-button class="primary">Add Contact</button>
+        </div>
+      </form>      
+     </div>
+
+     <div *ngIf="isUpdateContact" style="margin: 50px;">
+      <form [formGroup]="updateform" (ngSubmit)="UpdateClick()">
+
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Name" formControlName="_name" required>
+          <mat-error *ngIf="isFieldInvalid1('_name')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Number</mat-label>
+          <input matInput type="text" pattern="[0-9]*" placeholder="Number" formControlName="_number" required>
+          <mat-error *ngIf="isFieldInvalid1('_number')">
+            Invalid Number
+          </mat-error>
+        </mat-form-field>
+        <div class="form-group">
+          <button mat-raised-button class="primary">Update Contact</button>
+        </div>
+      </form>      
+     </div>
+    <div style="margin: 50px;">
+      <mat-form-field>
+        <mat-label>Search Contacts</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Search...">
+      </mat-form-field>
+      
+    </div>
+    
+    <mat-card-content>
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+          <ng-container matColumnDef="number">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Number </th>
+            <td mat-cell *matCellDef="let element"> {{element.number}} </td>
+          </ng-container>
+          
+          <ng-container matColumnDef="edit" mat-sort-header>
+            <th mat-header-cell *matHeaderCellDef> 
+              
+            </th>
+            <td mat-cell *matCellDef="let element"> 
+                <button mat-icon-button (click)="update(element)"
+                  matTooltip="Edit Contact" matTooltipPosition="above">
+                  <mat-icon>edit</mat-icon>
+                </button>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="delete" mat-sort-header>
+            <th mat-header-cell *matHeaderCellDef> 
+              
+            </th>
+            <td mat-cell *matCellDef="let element"> 
+                <button mat-icon-button (click)="delete(element)"
+                  matTooltip="Delete Contact" matTooltipPosition="above">
+                  <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+ 
+    </mat-card-content>
+    
+  </mat-card>
+  
+
+  

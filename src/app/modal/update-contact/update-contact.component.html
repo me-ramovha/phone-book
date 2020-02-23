@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Update Contact</h1>
+<div mat-dialog-content>
+    <div style="margin: 20px;">
+        <mat-form-field>
+            <input matInput [(ngModel)]="data.name"  placeholder="Contact Name">
+        </mat-form-field>
+    </div>
+    
+    <div style="margin: 20px;">
+        <mat-form-field>
+            <input matInput [(ngModel)]="data.number" placeholder="Contact Number">
+        </mat-form-field>
+    </div>
+    
+    <button mat-raised-button color="primary"
+     (click)="updateClick(data)">Save
+    </button>
+    <button mat-raised-button (click)="dialogRef.close()">Cancel</button>
+</div>
+
